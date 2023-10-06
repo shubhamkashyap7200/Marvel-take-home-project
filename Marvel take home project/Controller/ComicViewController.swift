@@ -30,7 +30,15 @@ class ComicViewController: UIViewController {
     // Initiase collection view / grid view
     private lazy var customCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 110, height: 180)
+        let modelName = UIDevice.modelName
+        let height = 180
+        var width = 110
+        
+        if modelName == "iPhone SE (3rd generation)" || modelName == "Simulator iPhone SE (3rd generation)" {
+            width = 160
+        }
+         
+        layout.itemSize = CGSize(width: width, height: height)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
