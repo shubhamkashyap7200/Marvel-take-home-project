@@ -41,7 +41,7 @@ class CharacterViewController: UIViewController {
     // Initiase collection view / grid view
     private lazy var customCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 180)
+        layout.itemSize = CGSize(width: 110, height: 180)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -49,7 +49,7 @@ class CharacterViewController: UIViewController {
         // Adding pagnation using third party library
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.infiniteScrollDirection = .vertical
-        collectionView.addInfiniteScroll { [weak self]colView in
+        collectionView.addInfiniteScroll { [weak self] colView in
             // Fetch more data by calling api
             
             CallCharacterAPI.limit += 20
@@ -58,7 +58,6 @@ class CharacterViewController: UIViewController {
             self?.callForCharactersAPI()
                         
         }
-        
         
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return collectionView
@@ -254,20 +253,7 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
             return allCharacterSimplifiedModelArray.count > 0 ? allCharacterSimplifiedModelArray.count : 10
         }
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
-        let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
-        let size:CGFloat = (collectionView.frame.size.width - space) / 2.0
-        return CGSize(width: size, height: size)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsets(top: 20, left: 8, bottom: 5, right: 8)
-    }
-    
+        
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! MyCollectionViewCell
         if allCharacterSimplifiedModelArray.count > 0 {
@@ -304,9 +290,9 @@ extension CharacterViewController {
             
             if let results = dataFromCharacterModel.data?.results {
                 for (_,res) in results.enumerated() {
-                    if let name = res.name, let imgPath = res.thumbnail?.path, let imgExtension = res.thumbnail?.extensions, let desc = res.description {
+                    if let name = res.name, let imgPath = res.thumbnail?.path, let imgExtension = res.thumbnail?.extensions {
                         simplifiedCharacterModel.name = name
-                        simplifiedCharacterModel.description = desc
+                        simplifiedCharacterModel.description = res.description ?? "No Description available"
                         simplifiedCharacterModel.image = imgPath + "." + imgExtension
                         
                         allCharacterSimplifiedModelArray.append(simplifiedCharacterModel)

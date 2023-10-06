@@ -30,7 +30,7 @@ class ComicViewController: UIViewController {
     // Initiase collection view / grid view
     private lazy var customCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 180)
+        layout.itemSize = CGSize(width: 110, height: 180)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -38,7 +38,7 @@ class ComicViewController: UIViewController {
         // Adding pagnation using third party library
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.infiniteScrollDirection = .vertical
-        collectionView.addInfiniteScroll { [weak self]colView in
+        collectionView.addInfiniteScroll { [weak self] colView in
             // Fetch more data by calling api
             
             CallComicAPI.limit += 20
@@ -59,7 +59,6 @@ class ComicViewController: UIViewController {
             }
             
         }
-        
         
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return collectionView
@@ -168,19 +167,6 @@ extension ComicViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return allComicsSimplifiedModelArray.count > 0 ? allComicsSimplifiedModelArray.count : 10
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowayout = collectionViewLayout as? UICollectionViewFlowLayout
-        let space: CGFloat = (flowayout?.minimumInteritemSpacing ?? 0.0) + (flowayout?.sectionInset.left ?? 0.0) + (flowayout?.sectionInset.right ?? 0.0)
-        let size:CGFloat = (collectionView.frame.size.width - space) / 2.0
-        return CGSize(width: size, height: size)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
-    {
-        return UIEdgeInsets(top: 20, left: 8, bottom: 5, right: 8)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! MyCollectionViewCell
         if allComicsSimplifiedModelArray.count > 0 {
@@ -262,7 +248,7 @@ extension ComicViewController {
     
     
     // Success methods
-    func successToFetchCmoics() {
+    func successToFetchComics() {
         print("Success to get comics")
         
         if let dataFromComicModel = ComicViewModel.savedComicModel {
@@ -270,9 +256,12 @@ extension ComicViewController {
             
             if let results = dataFromComicModel.data?.results {
                 for (_,res) in results.enumerated() {
-                    if let name = res.title, let imgPath = res.thumbnail?.path, let imgExtension = res.thumbnail?.extensions, let desc = res.description {
+//                    print("Value here every time :: \(res)")
+                    if let name = res.title, let imgPath = res.thumbnail?.path, let imgExtension = res.thumbnail?.extensions {
+                        print("Value here every time :: \(name)")
+
                         simplifiedCharacterModel.name = name
-                        simplifiedCharacterModel.description = desc
+                        simplifiedCharacterModel.description = res.description ?? "No Description available"
                         simplifiedCharacterModel.image = imgPath + "." + imgExtension
                         
                         allComicsSimplifiedModelArray.append(simplifiedCharacterModel)

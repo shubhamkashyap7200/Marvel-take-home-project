@@ -44,7 +44,7 @@ class ComicViewModel: NSObject{
                     if message == "200" {
                         DispatchQueue.main.async {
                             ComicViewModel.savedComicModel = myData
-                            self.vc?.successToFetchCmoics()
+                            self.vc?.successToFetchComics()
                         }
                     }
                 }

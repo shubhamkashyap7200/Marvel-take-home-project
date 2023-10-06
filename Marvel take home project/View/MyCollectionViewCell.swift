@@ -30,6 +30,8 @@ class MyCollectionViewCell: UICollectionViewCell {
         
         self.layer.cornerRadius = 6.0
         self.clipsToBounds = true
+        self.layer.shadowRadius = 10.0
+        
         self.addSubview(customImageView)
         self.addSubview(customDescription)
         self.addSubview(customLabel)
