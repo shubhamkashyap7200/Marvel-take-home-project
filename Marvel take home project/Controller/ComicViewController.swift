@@ -19,7 +19,7 @@ enum MenuTitle : String {
 
 class ComicViewController: UIViewController {
     // MARK: Properties
-    private var child = SpinnerViewController()
+    private var spinnerChild = SpinnerViewController()
     fileprivate let cellReuseIdentifier = "collectionCell"
     private var allComicsSimplifiedModelArray = [SimplifiedModel]()
     private let comicVM = ComicViewModel()
@@ -49,13 +49,13 @@ class ComicViewController: UIViewController {
                 
             } else if self?.menuTitle == .lastWeek {
                 self?.callForComicsAPILastWeek()
-
+                
             } else if self?.menuTitle == .upcomingWeek {
                 self?.callForComicsAPIUpcomingWeek()
-
+                
             } else if self?.menuTitle == .lastMonth {
                 self?.callForComicsAPILastMonth()
-
+                
             }
             
         }
@@ -67,19 +67,19 @@ class ComicViewController: UIViewController {
     
     func addSpinnerView() {
         // add the spinner view controller
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
+        addChild(spinnerChild)
+        spinnerChild.view.frame = view.frame
+        view.addSubview(spinnerChild.view)
+        spinnerChild.didMove(toParent: self)
     }
     
     func removeSpinnerView() {
         // then remove the spinner view controller
-        child.willMove(toParent: nil)
-        child.view.removeFromSuperview()
-        child.removeFromParent()
+        spinnerChild.willMove(toParent: nil)
+        spinnerChild.view.removeFromSuperview()
+        spinnerChild.removeFromParent()
     }
-
+    
     var menuItems: [UIAction] {
         return [
             UIAction(title: "This week", image: nil, handler: { (_) in
@@ -124,7 +124,7 @@ class ComicViewController: UIViewController {
         dateFormatter.calendar = .init(identifier: .iso8601)
         dateFormatter.locale = .init(identifier: "en_IN")
         dateFormatter.dateFormat = "yyyy-MM-dd"
-
+        
         
         view.addSubview(customCollectionView)
         
@@ -202,7 +202,7 @@ extension ComicViewController {
         let currentWeekBoundary = Calendar.current.weekBoundary(for: Date.now)
         var startDate = ""
         var endDate = ""
-
+        
         if let weekStartDate = currentWeekBoundary?.startOfWeek, let weekEndDate = currentWeekBoundary?.endOfWeek {
             startDate = dateFormatter.string(from: weekStartDate)
             endDate = dateFormatter.string(from: weekEndDate)
@@ -247,37 +247,12 @@ extension ComicViewController {
         
         let lastMonthStartDateString = dateFormatter.string(from: lastMonthStartDate ?? Date())
         let lastMonthEndDateString = dateFormatter.string(from: lastMonthEndDate ?? Date())
-
         
-        var startDate = lastMonthStartDateString
-        var endDate = lastMonthEndDateString
+        let startDate = lastMonthStartDateString
+        let endDate = lastMonthEndDateString
         
         callForComicsAPI(startDate: startDate, endDate: endDate)
     }
-
-
-    
-    //    func callForComicsAPILastWeek() {
-    //        let startDate = Date.now
-    //        let dateFormatter = DateFormatter()
-    //        dateFormatter.calendar = .init(identifier: .iso8601)
-    //        dateFormatter.locale = .init(identifier: "en_US_POSIX")
-    //        dateFormatter.dateFormat = "yyyy-MM-dd"
-    //        let todayDate = dateFormatter.string(from: startDate)
-    //
-    //        print("DATE ::: \(todayDate)")
-    //
-    //
-    //        let lastWeekDate = Calendar(identifier: .iso8601).date(byAdding: .weekOfYear, value: -1, to: Date())!
-    //        dateFormatter.calendar = .init(identifier: .iso8601)
-    //        dateFormatter.locale = .init(identifier: "en_US_POSIX")
-    //        dateFormatter.dateFormat = "yyyy-MM-dd"
-    //        let lastWeekDateString = dateFormatter.string(from: lastWeekDate)
-    //
-    //        print("DATE ::: \(lastWeekDateString)")
-    //
-    //        callForComicsAPI(startDate: lastWeekDateString, endDate: todayDate)
-    //    }
     
     
     func callForComicsAPI(startDate: String, endDate: String) {

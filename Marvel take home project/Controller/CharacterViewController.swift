@@ -13,7 +13,7 @@ import UIKit
 
 class CharacterViewController: UIViewController {
     // MARK: Properties
-    var child = SpinnerViewController()
+    var spinnerChild = SpinnerViewController()
 
     private let characterVM = CharacterViewModel()
     private let specificCharacterVM = SpecificCharacterViewModel()
@@ -66,17 +66,17 @@ class CharacterViewController: UIViewController {
         
     func addSpinnerView() {
         // add the spinner view controller
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
+        addChild(spinnerChild)
+        spinnerChild.view.frame = view.frame
+        view.addSubview(spinnerChild.view)
+        spinnerChild.didMove(toParent: self)
     }
     
     func removeSpinnerView() {
         // then remove the spinner view controller
-        child.willMove(toParent: nil)
-        child.view.removeFromSuperview()
-        child.removeFromParent()
+        spinnerChild.willMove(toParent: nil)
+        spinnerChild.view.removeFromSuperview()
+        spinnerChild.removeFromParent()
     }
     
     // MARK: Methods
