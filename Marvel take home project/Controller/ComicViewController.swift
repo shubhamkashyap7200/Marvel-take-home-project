@@ -7,15 +7,24 @@
 
 import Foundation
 import UIKit
+import UIScrollView_InfiniteScroll
+
+
+enum MenuTitle : String {
+    case thisWeek = "This week"
+    case lastWeek = "Last week"
+    case upcomingWeek = "Upcoming week"
+    case lastMonth = "Last month"
+}
 
 class ComicViewController: UIViewController {
     // MARK: Properties
     fileprivate let cellReuseIdentifier = "collectionCell"
     private var allComicsSimplifiedModelArray = [SimplifiedModel]()
     private let comicVM = ComicViewModel()
-    
     let dateFormatter = DateFormatter()
     let calendar = Calendar.current
+    let menuTitle: MenuTitle = .thisWeek
     
     // Initiase collection view / grid view
     private lazy var customCollectionView: UICollectionView = {
@@ -34,7 +43,19 @@ class ComicViewController: UIViewController {
             CallComicAPI.limit += 20
             CallComicAPI.offset += 20
             
-            //            self?.callForComicsAPI()
+            if self?.menuTitle == .thisWeek {
+                self?.callForComicsAPILastWeek()
+                
+            } else if self?.menuTitle == .lastWeek {
+                self?.callForComicsAPILastWeek()
+
+            } else if self?.menuTitle == .upcomingWeek {
+                self?.callForComicsAPIUpcomingWeek()
+
+            } else if self?.menuTitle == .lastMonth {
+                self?.callForComicsAPILastMonth()
+
+            }
             
         }
         

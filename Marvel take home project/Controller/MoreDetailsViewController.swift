@@ -36,7 +36,12 @@ class MoreDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
-        view.backgroundColor = .systemBackground
+        
+        
+        
+        let uiScrollView = UIScrollView()
+        view.addSubview(uiScrollView)
+        view.customAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         
         //  Pinning the image to top
         view.addSubview(characterImage)
