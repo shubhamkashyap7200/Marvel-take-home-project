@@ -19,9 +19,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iOe-Eh-qzd">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Gn2-gM-OZ9">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Gn2-gM-OZ9">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UTA-if-arA">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -48,10 +47,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="UTA-if-arA" firstAttribute="leading" secondItem="iOe-Eh-qzd" secondAttribute="leading" id="0kd-pP-mgb"/>
+                                    <constraint firstItem="Gn2-gM-OZ9" firstAttribute="leading" secondItem="iOe-Eh-qzd" secondAttribute="leading" id="1bi-6b-eAj"/>
                                     <constraint firstAttribute="bottom" secondItem="UTA-if-arA" secondAttribute="bottom" id="BTD-Og-9PM"/>
+                                    <constraint firstAttribute="bottom" secondItem="Gn2-gM-OZ9" secondAttribute="bottom" id="CZp-K2-Egm"/>
                                     <constraint firstAttribute="trailing" secondItem="UTA-if-arA" secondAttribute="trailing" id="dKX-04-RWa"/>
                                     <constraint firstItem="Ysn-cC-6WP" firstAttribute="centerX" secondItem="iOe-Eh-qzd" secondAttribute="centerX" id="lpC-24-fHh"/>
                                     <constraint firstItem="Ysn-cC-6WP" firstAttribute="centerY" secondItem="iOe-Eh-qzd" secondAttribute="centerY" id="sSX-07-Cey"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gn2-gM-OZ9" secondAttribute="trailing" id="wff-XF-vMN"/>
+                                    <constraint firstItem="Gn2-gM-OZ9" firstAttribute="top" secondItem="iOe-Eh-qzd" secondAttribute="top" id="ysc-Se-wG0"/>
                                     <constraint firstItem="UTA-if-arA" firstAttribute="top" secondItem="iOe-Eh-qzd" secondAttribute="top" id="zwa-69-0Ga"/>
                                 </constraints>
                             </view>

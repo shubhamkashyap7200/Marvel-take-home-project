@@ -55,6 +55,7 @@ class CharacterViewController: UIViewController {
             CallCharacterAPI.limit += 20
             CallCharacterAPI.offset += 20
             
+            print("VALUES HERE ::: DEMO \(CallCharacterAPI.limit)\(CallCharacterAPI.offset)")
             self?.callForCharactersAPI()
                         
         }
