@@ -8,8 +8,8 @@
 import Foundation
 
 enum HTTPMethodType : String {
-    case get     = "GET"
-    case post    = "POST"
+    case get = "GET"
+    case post = "POST"
 }
 
 struct CallCharacterAPI {

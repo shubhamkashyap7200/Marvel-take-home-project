@@ -27,25 +27,14 @@ class DashboardViewController: UITabBarController {
         vc1.navigationBar.prefersLargeTitles = true
         vc2.navigationBar.prefersLargeTitles = true
         
-        vc1.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "pin.fill"), tag: 0)
-        vc2.tabBarItem = UITabBarItem(title: "Comics", image: UIImage(systemName: "mail.fill"), tag: 1)
+        vc1.tabBarItem = UITabBarItem(title: "Characters", image: UIImage(systemName: "person.and.background.dotted"), tag: 0)
+        vc2.tabBarItem = UITabBarItem(title: "Comics", image: UIImage(systemName: "books.vertical.fill"), tag: 1)
         
         self.setViewControllers([vc1, vc2], animated: true)
-        self.selectedIndex = 1
+        self.selectedIndex = 0
     }
 }
 
 
 
 
-
-
-
-
-
-
-
-
-#Preview {
-    DashboardViewController()
-}

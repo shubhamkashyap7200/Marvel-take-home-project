@@ -11,7 +11,7 @@ import UIKit
 class SpecificCharacterViewModel: NSObject{
     
     weak var vc : CharacterViewController?
-    static var savedCharacterModelForSpecificCharacters: CharacterModel?
+    static var savedCharacterModelForSpecificCharacters: MarvelGeneralModel?
     
     func callForCharactersAPIForSpecficCharacter(name: String) {
         let myurl = URLLocations.marvelEndPoint + URLLocations.marvelCharacterQueryPoint +  "name=\(name)" + "\(URLLocations.otherParameters)"
@@ -37,10 +37,10 @@ class SpecificCharacterViewModel: NSObject{
             
             if let jsonData = AllData
             {
-                let myData =  try JSONDecoder().decode(CharacterModel.self, from: jsonData)
+                let myData =  try JSONDecoder().decode(MarvelGeneralModel.self, from: jsonData)
                 print(myData)
                 
-                if let data = myData.status {
+                if myData.status != nil {
                     if message == "200" {
                         DispatchQueue.main.async {
                             SpecificCharacterViewModel.savedCharacterModelForSpecificCharacters = myData

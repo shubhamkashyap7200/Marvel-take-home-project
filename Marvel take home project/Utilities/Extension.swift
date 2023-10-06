@@ -10,6 +10,9 @@ import CommonCrypto
 import Foundation
 
 // MARK: - Extensions
+
+
+// MARK: Factory function to deal with uikit constraints
 extension UIView {
     
     // Handling Contraints
@@ -80,8 +83,8 @@ extension UIView {
     }
 }
 
+// MARK: Json parsing helper function
 extension Dictionary{
-    
     func jsonParseString() -> String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: self, options: [])
@@ -99,7 +102,7 @@ extension Dictionary{
     }
 }
 
-
+// MARK: string to md5
 extension String {
     var md5: String {
         let data = Data(self.utf8)
@@ -144,13 +147,8 @@ extension UIImageView {
     }
 }
 
-
+// MARK: Get week start and week end
 extension Calendar {
-    /*
-    Week boundary is considered the start of
-    the first day of the week and the end of
-    the last day of the week
-    */
     typealias WeekBoundary = (startOfWeek: Date?, endOfWeek: Date?)
     
     func currentWeekBoundary() -> WeekBoundary? {
@@ -174,6 +172,7 @@ extension Calendar {
     }
 }
 
+// MARK: Month start and month end
 extension Date {
     //previous month start
     func getLastMonthStart() -> Date? {

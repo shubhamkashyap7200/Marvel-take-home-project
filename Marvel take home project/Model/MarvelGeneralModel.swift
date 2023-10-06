@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct CharacterModel: Codable {
+struct MarvelGeneralModel: Codable {
 
   var code            : Int?
   var status          : String?

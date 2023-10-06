@@ -60,6 +60,7 @@ class MoreDetailsViewController: UIViewController {
         visualEffectView.effect = UIBlurEffect(style: .regular)
         visualEffectView.customAnchor(top: characterImage.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         
+        // text stack view
         let stackView = UIStackView(arrangedSubviews: [characterName, characterDescription])
         view.addSubview(stackView)
         stackView.customAnchor(top: characterImage.bottomAnchor, left: view.leftAnchor, paddingTop: 20.0, paddingLeft: 20)
@@ -70,7 +71,3 @@ class MoreDetailsViewController: UIViewController {
     }
 }
 
-
-#Preview {
-    MoreDetailsViewController()
-}

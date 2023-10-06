@@ -20,6 +20,7 @@ class ParsingAPI : NSObject,URLSessionDataDelegate,URLSessionDelegate
            do {
                let jsonString = reqDict.jsonParseString()
                print(jsonString)
+               
                let escapedUrlString = "\(jsonString!.replacingOccurrences(of: "\\", with: "", options: NSString.CompareOptions.literal, range: nil))"
                var request = URLRequest(url: reqUrl, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 60)
                request.httpMethod = methodType.rawValue

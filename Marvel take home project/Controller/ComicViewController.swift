@@ -79,6 +79,7 @@ class ComicViewController: UIViewController {
         spinnerChild.removeFromParent()
     }
     
+    // Menu items
     var menuItems: [UIAction] {
         return [
             UIAction(title: "This week", image: nil, handler: { (_) in
@@ -124,14 +125,16 @@ class ComicViewController: UIViewController {
         dateFormatter.locale = .init(identifier: "en_IN")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
-        
         view.addSubview(customCollectionView)
         
         // adding constraints and registring the collection view cell
         customCollectionView.customAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         customCollectionView.register(MyCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         
+        //adding spinner
         addSpinnerView()
+        
+        // Network call
         callForComicsAPIThisWeek()
     }
     
@@ -286,6 +289,3 @@ extension ComicViewController {
     }
 }
 
-#Preview {
-    ComicViewController()
-}

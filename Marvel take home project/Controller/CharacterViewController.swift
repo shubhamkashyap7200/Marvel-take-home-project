@@ -342,7 +342,3 @@ extension CharacterViewController {
         removeSpinnerView()
     }
 }
-
-#Preview {
-    CharacterViewController()
-}

@@ -11,7 +11,7 @@ import UIKit
 class ComicViewModel: NSObject{
     
     weak var vc : ComicViewController?
-    static var savedComicModel: CharacterModel?
+    static var savedComicModel: MarvelGeneralModel?
 // https://gateway.marvel.com:443/v1/public/comics?dateRange=2020-01-01%2C2020-01-08&limit=10&offset=0&apikey=ecd4bbfb16615d304bd94469969af0c1
 
     func callForComicsAPI(startDate: String, endDate: String)
@@ -37,7 +37,7 @@ class ComicViewModel: NSObject{
             
             if let jsonData = AllData
             {
-                let myData =  try JSONDecoder().decode(CharacterModel.self, from: jsonData)
+                let myData =  try JSONDecoder().decode(MarvelGeneralModel.self, from: jsonData)
                 print(myData)
                 
                 if myData.status != nil {

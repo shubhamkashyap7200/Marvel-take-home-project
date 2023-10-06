@@ -11,7 +11,7 @@ import UIKit
 class CharacterViewModel: NSObject{
     
     weak var vc : CharacterViewController?
-    static var savedCharacterModel: CharacterModel?
+    static var savedCharacterModel: MarvelGeneralModel?
     
     func callForCharactersAPI()
     {
@@ -36,7 +36,7 @@ class CharacterViewModel: NSObject{
             
             if let jsonData = AllData
             {
-                let myData =  try JSONDecoder().decode(CharacterModel.self, from: jsonData)
+                let myData =  try JSONDecoder().decode(MarvelGeneralModel.self, from: jsonData)
                 print(myData)
                 
                 if myData.status != nil {
