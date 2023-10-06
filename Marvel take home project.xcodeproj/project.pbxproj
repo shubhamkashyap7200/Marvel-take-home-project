@@ -585,6 +585,7 @@
 				DEVELOPMENT_TEAM = 43L658SZQH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Marvel take home project/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Shadow base";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -612,6 +613,7 @@
 				DEVELOPMENT_TEAM = 43L658SZQH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Marvel take home project/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Shadow base";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
