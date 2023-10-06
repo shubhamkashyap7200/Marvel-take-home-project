@@ -1,19 +1,20 @@
 //
-//  ViewController.swift
+//  ComicViewController.swift
 //  Marvel take home project
 //
 //  Created by Shubham on 05/10/23.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
-
+class ComicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        title = "Comics"
     }
-
-
 }
 
+#Preview {
+    ComicViewController()
+}
