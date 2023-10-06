@@ -45,7 +45,8 @@ class MoreDetailsViewController: UIViewController {
         
         view.addSubview(characterName)
         characterName.text = characterNameString
-        
+        characterName.numberOfLines = 0
+
         view.addSubview(characterDescription)
         characterDescription.text = characterDescString
         characterDescription.numberOfLines = 0

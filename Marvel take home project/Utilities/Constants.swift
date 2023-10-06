@@ -17,3 +17,9 @@ struct CallCharacterAPI {
     static var offset = 0
 }
 
+struct CallComicAPI {
+    static var limit = 20
+    static var offset = 0
+}
+
+

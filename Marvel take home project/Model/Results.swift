@@ -10,6 +10,7 @@ struct Results: Codable {
     
     var id          : Int?
     var name        : String?
+    var title: String?
     var description : String?
     var modified    : String?
     var resourceURI : String?
@@ -24,6 +25,7 @@ struct Results: Codable {
         
         case id          = "id"
         case name        = "name"
+        case title = "title"
         case description = "description"
         case modified    = "modified"
         case resourceURI = "resourceURI"
@@ -41,6 +43,7 @@ struct Results: Codable {
         
         id          = try values.decodeIfPresent(Int.self    , forKey: .id          )
         name        = try values.decodeIfPresent(String.self    , forKey: .name        )
+        title        = try values.decodeIfPresent(String.self    , forKey: .title        )
         description = try values.decodeIfPresent(String.self    , forKey: .description )
         modified    = try values.decodeIfPresent(String.self    , forKey: .modified    )
         resourceURI = try values.decodeIfPresent(String.self    , forKey: .resourceURI )

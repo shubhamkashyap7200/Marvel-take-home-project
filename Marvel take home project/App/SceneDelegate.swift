@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.backgroundColor = .systemBackground
+        window?.tintColor = .systemIndigo
         window?.windowScene = windowScene
         window?.rootViewController = DashboardViewController()
         window?.makeKeyAndVisible()

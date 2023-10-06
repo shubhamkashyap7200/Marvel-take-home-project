@@ -13,20 +13,23 @@ import UIKit
 
 class CharacterViewController: UIViewController {
     // MARK: Properties
-    
-    let characterVM = CharacterViewModel()
-    let specificCharacterVM = SpecificCharacterViewModel()
-    var tableViewSearchHistoryArray = [String]()
 
+    private let characterVM = CharacterViewModel()
+    private let specificCharacterVM = SpecificCharacterViewModel()
+    private var tableViewSearchHistoryArray = [String]()
     private var searching = false
     private var searchedArray = [String]()
     private let screenSize: CGRect = UIScreen.main.bounds
+    private let searchController = UISearchController(searchResultsController: nil)
+
     fileprivate let cellReuseIdentifier = "collectionCell"
     fileprivate let cellReuseIdentifierForTableView = "tableCell"
     
-    private var allCharacterSimplifiedModelArray = [CharacterSimplifiedModel]()
-    private var specificCharacterSimplifiedModelArray = [CharacterSimplifiedModel]()
+    // For both if searched or not searched model files
+    private var allCharacterSimplifiedModelArray = [SimplifiedModel]()
+    private var specificCharacterSimplifiedModelArray = [SimplifiedModel]()
     
+    // Table view for the history of the search bar
     private lazy var customSearchBarHistoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -34,6 +37,7 @@ class CharacterViewController: UIViewController {
         return tableView
     }()
 
+    // Initiase collection view / grid view
     private lazy var customCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 100, height: 180)
@@ -41,7 +45,7 @@ class CharacterViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        // Adding pagnation
+        // Adding pagnation using third party library
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.infiniteScrollDirection = .vertical
         collectionView.addInfiniteScroll { [weak self]colView in
@@ -51,9 +55,7 @@ class CharacterViewController: UIViewController {
             CallCharacterAPI.offset += 20
             
             self?.callForCharactersAPI()
-            
-            // Add cells
-            
+                        
         }
         
         
@@ -61,31 +63,32 @@ class CharacterViewController: UIViewController {
         return collectionView
     }()
     
-    let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        navigationController?.navigationBar.topItem?.title = "Characters"
+
+        // Getting all stored history entry from user defaults
         tableViewSearchHistoryArray = UserDefaults.standard.value(forKey: "tableViewSearchHistory") as? [String] ?? []
 
+        // adding both collection and table view to view
         view.addSubview(customCollectionView)
         view.addSubview(customSearchBarHistoryTableView)
         
+        // adding constraints and registring the collection view cell
         customCollectionView.customAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         customCollectionView.register(MyCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         
-        
+        // adding constratins to table view and hiding it initialy
         customSearchBarHistoryTableView.customAnchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-
-        navigationController?.navigationBar.topItem?.title = "Characters"
-        
-        configureSearchController()
         customSearchBarHistoryTableView.isHidden = true
+
+        // adding search bar
+        configureSearchController()
         
-        // Network call
+        // Network call for first 20 characters
         callForCharactersAPI()
-        
         
     }
     
@@ -117,16 +120,6 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = tableViewSearchHistoryArray.reversed()[indexPath.row]
-        
-        
-//
-//        var tableViewSearchHistoryArray = [String]()
-//        tableViewSearchHistoryArray = UserDefaults.standard.value(forKey: "tableViewSearchHistory") as? [String] ?? []
-//        
-//        if !tableViewSearchHistoryArray.isEmpty {
-//            cell.customLabel.text = tableViewSearchHistoryArray.reversed()[indexPath.row]
-//        }
-//        
         return cell
     }
     
@@ -149,12 +142,13 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+
+// MARK: Search bar functions
 extension CharacterViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text ?? ""
         if !searchText.isEmpty {
             searching = true
-//            specificCharacterSimplifiedModelArray.removeAll()
         } else {
             searching = false
             specificCharacterSimplifiedModelArray.removeAll()
@@ -200,6 +194,7 @@ extension CharacterViewController: UISearchResultsUpdating, UISearchBarDelegate 
     }
 }
 
+// MARK: Collection view delegates and datasource
 extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! MyCollectionViewCell
@@ -285,7 +280,7 @@ extension CharacterViewController {
         print("DEBUG:NETWORK - This is a success from characters api")
         
         if let dataFromCharacterModel = CharacterViewModel.savedCharacterModel {
-            var simplifiedCharacterModel = CharacterSimplifiedModel()
+            var simplifiedCharacterModel = SimplifiedModel()
             
             if let results = dataFromCharacterModel.data?.results {
                 for (_,res) in results.enumerated() {
@@ -312,7 +307,7 @@ extension CharacterViewController {
         print("DEBUG:NETWORK - This is a success from characters api")
         
         if let dataFromCharacterModel = SpecificCharacterViewModel.savedCharacterModelForSpecificCharacters {
-            var simplifiedCharacterModel = CharacterSimplifiedModel()
+            var simplifiedCharacterModel = SimplifiedModel()
             
             if let results = dataFromCharacterModel.data?.results {
                 for (_,res) in results.enumerated() {

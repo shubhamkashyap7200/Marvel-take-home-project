@@ -42,6 +42,7 @@ class MyCollectionViewCell: UICollectionViewCell {
         // Name setting
         customLabel.customAnchor(left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, height: 40.0)
         customLabel.textAlignment = .center
+        customLabel.textColor = .white
         customLabel.text = "Loading"
         customLabel.backgroundColor = .black.withAlphaComponent(0.5)
     }

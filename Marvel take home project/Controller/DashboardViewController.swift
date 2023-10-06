@@ -31,6 +31,7 @@ class DashboardViewController: UITabBarController {
         vc2.tabBarItem = UITabBarItem(title: "Comics", image: UIImage(systemName: "mail.fill"), tag: 1)
         
         self.setViewControllers([vc1, vc2], animated: true)
+        self.selectedIndex = 1
     }
 }
 

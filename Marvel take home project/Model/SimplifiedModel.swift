@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct CharacterSimplifiedModel {
+struct SimplifiedModel {
     var name: String?
     var image: String?
     var description: String?
