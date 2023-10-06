@@ -13,6 +13,7 @@ import UIKit
 
 class CharacterViewController: UIViewController {
     // MARK: Properties
+    var child = SpinnerViewController()
 
     private let characterVM = CharacterViewModel()
     private let specificCharacterVM = SpecificCharacterViewModel()
@@ -62,7 +63,21 @@ class CharacterViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return collectionView
     }()
+        
+    func addSpinnerView() {
+        // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
     
+    func removeSpinnerView() {
+        // then remove the spinner view controller
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
     
     // MARK: Methods
     override func viewDidLoad() {
@@ -88,6 +103,7 @@ class CharacterViewController: UIViewController {
         configureSearchController()
         
         // Network call for first 20 characters
+        addSpinnerView()
         callForCharactersAPI()
         
     }
@@ -127,6 +143,8 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let cell = tableView.cellForRow(at: indexPath)
         // Call api again if user press the any cell
+        addSpinnerView()
+        
         if let text = cell?.textLabel?.text {
             
             if customCollectionView.isHidden == true {
@@ -159,6 +177,8 @@ extension CharacterViewController: UISearchResultsUpdating, UISearchBarDelegate 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // Pressed the done key
+        addSpinnerView()
+        
         if customCollectionView.isHidden == true {
             customCollectionView.isHidden = false
             customSearchBarHistoryTableView.isHidden = true
@@ -299,6 +319,7 @@ extension CharacterViewController {
             
             // finish the infinite loop
             customCollectionView.finishInfiniteScroll()
+            removeSpinnerView()
 
         }
     }
@@ -324,6 +345,7 @@ extension CharacterViewController {
             // Filling the array
             print("VALUES ARE HERE :: \(specificCharacterSimplifiedModelArray)")
             customCollectionView.reloadData()
+            removeSpinnerView()
         }
     }
 
@@ -331,6 +353,7 @@ extension CharacterViewController {
     // failure methods
     func failedToFetchCharacters() {
         print("DEBUG:NETWORK - This is a failure from characters api")
+        removeSpinnerView()
     }
 }
 

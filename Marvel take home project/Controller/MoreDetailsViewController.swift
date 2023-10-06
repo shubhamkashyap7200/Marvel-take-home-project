@@ -37,12 +37,6 @@ class MoreDetailsViewController: UIViewController {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
         
-        
-        
-        let uiScrollView = UIScrollView()
-        view.addSubview(uiScrollView)
-        view.customAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
-        
         //  Pinning the image to top
         view.addSubview(characterImage)
         characterImage.customAnchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: screenSize.height / 2)

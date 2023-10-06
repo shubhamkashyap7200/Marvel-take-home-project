@@ -19,6 +19,7 @@ enum MenuTitle : String {
 
 class ComicViewController: UIViewController {
     // MARK: Properties
+    private var child = SpinnerViewController()
     fileprivate let cellReuseIdentifier = "collectionCell"
     private var allComicsSimplifiedModelArray = [SimplifiedModel]()
     private let comicVM = ComicViewModel()
@@ -64,25 +65,44 @@ class ComicViewController: UIViewController {
         return collectionView
     }()
     
+    func addSpinnerView() {
+        // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+    
+    func removeSpinnerView() {
+        // then remove the spinner view controller
+        child.willMove(toParent: nil)
+        child.view.removeFromSuperview()
+        child.removeFromParent()
+    }
+
     var menuItems: [UIAction] {
         return [
             UIAction(title: "This week", image: nil, handler: { (_) in
                 // This week calling the api and filtering the result
+                self.addSpinnerView()
                 self.allComicsSimplifiedModelArray.removeAll()
                 self.callForComicsAPIThisWeek()
             }),
             UIAction(title: "Last week", image: nil, handler: { (_) in
                 // This week calling the api and filtering the result
+                self.addSpinnerView()
                 self.allComicsSimplifiedModelArray.removeAll()
                 self.callForComicsAPILastWeek()
             }),
             UIAction(title: "Upcoming week", image: nil, handler: { (_) in
                 // This week calling the api and filtering the result
+                self.addSpinnerView()
                 self.allComicsSimplifiedModelArray.removeAll()
                 self.callForComicsAPIUpcomingWeek()
             }),
             UIAction(title: "Last month", image: nil, handler: { (_) in
                 // This week calling the api and filtering the result
+                self.addSpinnerView()
                 self.allComicsSimplifiedModelArray.removeAll()
                 self.callForComicsAPILastMonth()
             })
@@ -112,6 +132,7 @@ class ComicViewController: UIViewController {
         customCollectionView.customAnchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
         customCollectionView.register(MyCollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         
+        addSpinnerView()
         callForComicsAPIThisWeek()
     }
     
@@ -286,6 +307,7 @@ extension ComicViewController {
             
             
             customCollectionView.reloadData()
+            removeSpinnerView()
             
             // finish the infinite loop
             customCollectionView.finishInfiniteScroll()
@@ -296,6 +318,7 @@ extension ComicViewController {
     
     func failedToFetchComics(){
         print("Failure to get comics")
+        removeSpinnerView()
     }
 }
 
